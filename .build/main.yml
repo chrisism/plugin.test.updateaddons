@@ -19,7 +19,7 @@
 #   - git_userName
 #   - github_token
 trigger:
-- main
+- master
 - release/*
 - hotfix/*
 - dev
