@@ -1,0 +1,40 @@
+continuous-delivery-fallback-tag: unstable
+commit-message-incrementing: enabled
+branches:
+  master:
+    regex: ^master$|^main$
+    mode: ContinuousDelivery
+    tag: "stable"
+    increment: Patch
+    prevent-increment-of-merged-branch-version: true
+    track-merge-target: false
+    source-branches: [ 'develop', 'release', 'hotfix']
+    tracks-release-branches: false
+    is-release-branch: false
+    is-mainline: true
+  develop:
+    regex: dev(elop)?(ment)?$
+    mode: ContinuousDeployment
+    tag: alpha
+    increment: Minor
+    track-merge-target: true
+  hotfix:
+    regex: hotfix(es)?[/-]
+    mode: ContinuousDeployment
+    tag: rc
+    increment: Patch
+    prevent-increment-of-merged-branch-version: false
+    track-merge-target: true
+  release:
+    regex: releases?[/-]
+    mode: ContinuousDeployment
+    tag: rc
+    increment: Patch
+    prevent-increment-of-merged-branch-version: true
+    track-merge-target: false
+  feature:
+    regex: features?[/-]
+    mode: ContinuousDeployment
+
+merge-message-formats:
+  devops: '(M|m)erge (?<SourceBranch>.+) (in)?to (?<TargetBranch>.+)'
